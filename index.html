@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Accusations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 20px;
+            background-color: #f2f2f2;
+        }
+
+        #accusations {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        h3 {
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        h3:hover {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="accusations"></div>
+
+    <script>
+        // Create arrays for friends, locations, and weapons
+        var friends = ["Alice", "Bob", "Charlie", "Dave", "Eve"];
+        var locations = ["Kitchen", "Library", "Hallway", "Bathroom", "Garage", "Bedroom", "Living Room", "Garden", "Basement", "Balcony"];
+        var weapons = ["Spoon", "Fork", "Knife", "Gun", "Rope", "Poison", "Candlestick", "Hammer", "Laptop", "Phone", "Book", "Pen", "Pillow", "Wrench", "Screwdriver", "Flamethrower", "Bow and Arrow", "Slingshot", "Chainsaw", "Guitar"];
+
+        // Function that generates a closure
+        function makeAccusation(i, friend, location, weapon) {
+            return function () {
+                alert(`Accusation ${i}: I accuse ${friend}, with the ${weapon} in the ${location}!`);
+            };
+        }
+
+        // Generate h3 elements
+        for (var i = 1; i <= 100; i++) {
+            // Create h3 element
+            var h3 = document.createElement('h3');
+            h3.textContent = `Accusation ${i}`;
+
+            // Calculate indexes for friends, locations, and weapons using modulus
+            var friendIndex = (i - 1) % friends.length;
+            var locationIndex = (i - 1) % locations.length;
+            var weaponIndex = (i - 1) % weapons.length;
+
+            // Set click listener with closure
+            h3.addEventListener('click', makeAccusation(i, friends[friendIndex], locations[locationIndex], weapons[weaponIndex]));
+
+            // Append h3 to the page
+            document.getElementById('accusations').appendChild(h3);
+        }
+    </script>
+</body>
+
+</html>
